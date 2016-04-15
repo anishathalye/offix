@@ -13,6 +13,10 @@ router.get('/', MainController.index);
 
 router.get('/account', utils.isAuthed, UserController.account);
 
+router.post('/account/addaddress', utils.isAuthed, UserController.addAddress);
+
+router.post('/account/deleteaddress', utils.isAuthed, UserController.deleteAddress);
+
 router.get('/create', UserController.create);
 
 router.post('/register', UserController.register);
@@ -23,5 +27,9 @@ router.all('/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/');
 });
+
+// admin
+
+// TODO admin page
 
 module.exports = router;

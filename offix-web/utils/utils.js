@@ -29,3 +29,7 @@ utils.isAdmin = function(req, res, next) {
   // TODO better error message
   res.status(401).send('You must be an admin to do that');
 };
+
+utils.isMacAddress = function(addr) {
+  return /^([a-f0-9]{2}:){5}[a-f0-9]{2}$/.test(addr);
+};

@@ -15,3 +15,19 @@ block content
     tr
       td last seen
       td= lastSeen
+    each addr in addresses
+      tr
+        td address
+        td #{addr}
+          form(action='/account/deleteaddress', method='post')
+            input(type='hidden', name='address', value='#{addr}')
+            input(type='submit', value='delete')
+  h2 add mac address (01:23:45:67:89:ab)
+  form(name='add', action='/account/addaddress', method='post')
+    table
+      tr
+        td
+          label(for='address') mac address
+        td
+          input(type='text', name='address')
+    input(type='submit', value='add')

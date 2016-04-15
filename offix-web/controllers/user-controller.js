@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var moment = require('moment');
 
 var config = require('../config');
@@ -14,6 +15,7 @@ UserController.account = function(req, res) {
     realName: user.realName,
     isAdmin: user.isAdmin,
     lastSeen: lastSeen,
+    addresses: user.macAddresses,
   });
 };
 
@@ -62,5 +64,40 @@ UserController.login = function(req, res) {
     req.session.user = user;
     // and go to the homepage
     res.redirect('/');
+  });
+};
+
+UserController.addAddress = function(req, res) {
+  User.findById(req.session.user._id, function(err, user) {
+    if (err || !user) {
+      return res.redirect('/account');
+    }
+    var addr = req.body.address.toLowerCase();
+    if (utils.isMacAddress(addr) && !_.includes(user.macAddresses, addr)) {
+      user.macAddresses.push(addr);
+      user.save(function(err, user) {
+        req.session.user = user; // so mac addresses show up
+        res.redirect('/account');
+      });
+    } else {
+      return res.redirect('/account');
+    }
+  });
+};
+
+UserController.deleteAddress = function(req, res) {
+  User.findById(req.session.user._id, function(err, user) {
+    if (err || !user) {
+      return res.redirect('/account');
+    }
+    if (!req.body.address) {
+      return res.redirect('/account');
+    }
+    var addr = req.body.address.toLowerCase();
+    user.macAddresses = _.without(user.macAddresses, addr);
+    user.save(function(err, user) {
+      req.session.user = user; // so mac addresses show up
+      res.redirect('/account');
+    });
   });
 };
