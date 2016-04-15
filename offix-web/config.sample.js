@@ -4,10 +4,6 @@
 
 var config = module.exports = {};
 
-// application name
-// probably doesn't need to be changed
-config.APP_NAME = 'offix';
-
 // key to sign up for a new account
 config.SIGNUP_KEY = 'offix';
 
@@ -19,3 +15,8 @@ config.DB_URL = 'localhost/' + config.APP_NAME;
 
 // session secret
 config.SESSION_SECRET = '7a33921972f85101d5c6b7f30a9af6cdab37aa4a43f4d589d2294dc0703a949d';
+
+// these things probably don't need to be changed
+config.APP_NAME = 'offix';
+config.MIN_USERNAME_LENGTH = 3;
+config.MIN_PASSWORD_LENGTH = 6;
