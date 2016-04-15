@@ -1,15 +1,30 @@
+var moment = require('moment');
+
 var config = require('../config');
 var utils = require('../utils/utils');
 var User = require('../models/user');
 
 var UserController = module.exports = {};
 
+UserController.account = function(req, res) {
+  var user = req.session.user;
+  var lastSeen = user.lastSeen ? moment().to(lastSeen) : 'Never';
+  res.render('account', {
+    username: user.username,
+    realName: user.realName,
+    isAdmin: user.isAdmin,
+    lastSeen: lastSeen,
+  });
+};
+
 UserController.register = function(req, res) {
+  console.log(req.body);
+  console.log('key=' + req.body.key);
   if (!utils.constantTimeStringEquals(req.body.key, config.SIGNUP_KEY)) {
     // TODO nicer error message / page
     return res.status(401).send('Invalid signup key');
   }
-  User.register(req.body.username, req.body.password, function(err, user) {
+  User.register(req.body.username, req.body.password, req.body.realName, function(err, user) {
     if (err) {
       // TODO more helpful error messages like "user is already registered"
       // but be sure not to leak debug info

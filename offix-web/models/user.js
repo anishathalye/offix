@@ -26,11 +26,11 @@ userSchema.statics.register = function(username, password, realName, callback) {
       if (err) {
         return callback(err);
       }
-      this.create({username: username, password: hashed, realName: realName}, function(err, user) {
+      User.create({username: username, password: hashed, realName: realName}, function(err, user) {
         if (err) {
           return callback(err);
         }
-        callback(null, user);
+        return callback(null, user);
       });
     });
   });

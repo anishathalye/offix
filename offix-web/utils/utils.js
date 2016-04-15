@@ -13,3 +13,19 @@ utils.constantTimeStringEquals = function(a, b) {
   }
   return equal;
 };
+
+utils.isAuthed = function(req, res, next) {
+  if (req.session.user) {
+    return next();
+  }
+  // TODO better error message
+  res.status(401).send('You must be logged in to do that');
+};
+
+utils.isAdmin = function(req, res, next) {
+  if (req.session.user && req.session.user.isAdmin) {
+    return next();
+  }
+  // TODO better error message
+  res.status(401).send('You must be an admin to do that');
+};
