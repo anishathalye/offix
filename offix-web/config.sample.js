@@ -16,3 +16,6 @@ config.API_KEY = '14efe32635798c9ca3eb7ce596b9c0e329a71b7081c801c634efebf69935c6
 
 // database url
 config.DB_URL = 'localhost/' + config.APP_NAME;
+
+// session secret
+config.SESSION_SECRET = '7a33921972f85101d5c6b7f30a9af6cdab37aa4a43f4d589d2294dc0703a949d';
