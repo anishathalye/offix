@@ -1,3 +1,5 @@
+var config = require('../config');
+
 var utils = module.exports = {};
 
 utils.constantTimeStringEquals = function(a, b) {
@@ -28,6 +30,13 @@ utils.isAdmin = function(req, res, next) {
   }
   // TODO better error message
   res.status(401).send('You must be an admin to do that');
+};
+
+utils.apiAuthed = function(req, res, next) {
+  if (req.query && utils.constantTimeStringEquals(req.query.key, config.API_KEY)) {
+    return next();
+  }
+  res.status(401).json({error: 'invalid api key'});
 };
 
 utils.isMacAddress = function(addr) {

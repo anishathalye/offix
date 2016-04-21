@@ -4,6 +4,7 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var UserController = require('../controllers/user-controller');
 var MainController = require('../controllers/main-controller');
+var ApiController = require('../controllers/api-controller');
 
 // main
 
@@ -31,5 +32,9 @@ router.all('/logout', function(req, res) {
 // admin
 
 // TODO admin page
+
+// api
+
+router.get('/api/users', utils.apiAuthed, ApiController.users);
 
 module.exports = router;
