@@ -1,0 +1,19 @@
+{
+  "name": "hubot-offix",
+  "description": "A script that interfaces with offix",
+  "version": "1.0.0",
+  "author": "Anish Athalye <me@anishathalye.com>",
+  "license": "GPLv3",
+  "keywords": "hubot, hubot-scripts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anishathalye/hubot-offix"
+  },
+  "dependencies": {
+    "hubot-conf": "^1.0.0"
+  },
+  "peerDependencies": {
+    "hubot": "2.x"
+  },
+  "main": "index.coffee"
+}
