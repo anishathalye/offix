@@ -1,7 +1,7 @@
 {
   "name": "hubot-offix",
   "description": "A script that interfaces with offix",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Anish Athalye <me@anishathalye.com>",
   "license": "GPLv3",
   "keywords": "hubot, hubot-scripts",
