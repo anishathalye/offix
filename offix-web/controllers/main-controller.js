@@ -1,3 +1,8 @@
+var _ = require('lodash');
+var moment = require('moment');
+
+var User = require('../models/user.js');
+
 var MainController = module.exports = {};
 
 MainController.unauthed = function(req, res) {
@@ -7,8 +12,19 @@ MainController.unauthed = function(req, res) {
 
 MainController.authed = function(req, res) {
   // main view
-  // TODO populate with data
-  res.render('index');
+  User.find({}, function(err, users) {
+    var sorted = _.sortBy(users, function(user) {
+      return -user.lastSeen.getTime(); // negative to sort in descending order
+    });
+    var data = _.map(sorted, function(user) {
+      return {
+        username: user.username,
+        realName: user.realName,
+        lastSeen: user.lastSeen ? moment().to(user.lastSeen) : 'never',
+      };
+    });
+    res.render('index', {users: data});
+  });
 };
 
 MainController.index = function(req, res) {

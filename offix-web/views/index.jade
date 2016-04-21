@@ -6,3 +6,16 @@ block content
     a(href='/account') account
   p
     a(href='/logout') log out
+  table
+    tr
+      td
+        strong username
+      td
+        strong real name
+      td
+        strong last seen
+    each user in users
+      tr
+        td= user.username
+        td= user.realName
+        td= user.lastSeen

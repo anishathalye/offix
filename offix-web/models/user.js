@@ -62,7 +62,6 @@ userSchema.statics.seen = function(address, callback) {
   // of them
   var now = new Date();
   this.find({macAddresses: address}, function(err, users) {
-    console.log(JSON.stringify(users));
     async.map(users, function(user, callback) {
       user.lastSeen = now;
       user.save(callback);

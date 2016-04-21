@@ -4,20 +4,25 @@ block content
   h1 account
   table
     tr
-      td username
+      td
+        strong username
       td= username
     tr
-      td real name
+      td
+        strong real name
       td= realName
     tr
-      td admin?
+      td
+        strong admin?
       td= isAdmin
     tr
-      td last seen
+      td
+        strong last seen
       td= lastSeen
     each addr in addresses
       tr
-        td address
+        td
+          strong address
         td #{addr}
           form(action='/account/deleteaddress', method='post')
             input(type='hidden', name='address', value='#{addr}')
