@@ -18,5 +18,6 @@ config.SESSION_SECRET = '7a33921972f85101d5c6b7f30a9af6cdab37aa4a43f4d589d2294dc
 
 // these things probably don't need to be changed
 config.APP_NAME = 'offix';
+config.EXCHANGE_NAME = 'offix';
 config.MIN_USERNAME_LENGTH = 3;
 config.MIN_PASSWORD_LENGTH = 6;

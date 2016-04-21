@@ -9,10 +9,13 @@ var mongoose = require('mongoose');
 
 var config = require('./config');
 var routes = require('./routes/index');
+var wifi = require('./wifi');
 
 var app = express();
 
 var db = mongoose.connect(config.DB_URL);
+
+wifi.start(db);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -8,14 +8,20 @@ var User = require('../models/user');
 var UserController = module.exports = {};
 
 UserController.account = function(req, res) {
-  var user = req.session.user;
-  var lastSeen = user.lastSeen ? moment().to(lastSeen) : 'never';
-  res.render('account', {
-    username: user.username,
-    realName: user.realName,
-    isAdmin: user.isAdmin,
-    lastSeen: lastSeen,
-    addresses: user.macAddresses,
+  // need to get from db instead of req.session.user because data may be out of
+  // date
+  User.findById(req.session.user._id, function(err, user) {
+    if (err || !user) {
+      return res.redirect('/account');
+    }
+    var lastSeen = user.lastSeen ? moment().to(user.lastSeen) : 'never';
+    return res.render('account', {
+      username: user.username,
+      realName: user.realName,
+      isAdmin: user.isAdmin,
+      lastSeen: lastSeen,
+      addresses: user.macAddresses,
+    });
   });
 };
 

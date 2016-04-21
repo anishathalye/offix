@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var async = require('async');
 
 var errors = require('../utils/errors');
 
@@ -53,6 +54,19 @@ userSchema.statics.authenticate = function(username, password, callback) {
       }
       return callback(null, user);
     });
+  });
+};
+
+userSchema.statics.seen = function(address, callback) {
+  // there really shouldn't be more than one, but if there is, just update all
+  // of them
+  var now = new Date();
+  this.find({macAddresses: address}, function(err, users) {
+    console.log(JSON.stringify(users));
+    async.map(users, function(user, callback) {
+      user.lastSeen = now;
+      user.save(callback);
+    }, callback);
   });
 };
 
