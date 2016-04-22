@@ -1,6 +1,6 @@
 CC := gcc
-CCFLAGS := -O3 -Wall -Wextra -Werror -pedantic
-LDFLAGS := -lpcap
+CCFLAGS := -std=gnu99 -O3 -Wall -Wextra -Werror -pedantic
+LDFLAGS := -lpcap -lrabbitmq
 
 HEADERFILES := \
 
