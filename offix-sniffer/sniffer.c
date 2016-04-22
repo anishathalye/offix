@@ -35,15 +35,9 @@ void send_message(amqp_connection_state_t conn, const char *body)
     amqp_basic_properties_t props;
     props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG | AMQP_BASIC_DELIVERY_MODE_FLAG;
     props.content_type = amqp_cstring_bytes("text/plain");
-    props.delivery_mode = 2; /* persistent delivery mode */
-    status = amqp_basic_publish(conn,
-        1,
-        amqp_cstring_bytes(QUEUE_EXCHANGE_NAME),
-        amqp_cstring_bytes(""),
-        0,
-        0,
-        &props,
-        amqp_cstring_bytes(body));
+    props.delivery_mode = 2; // persistent delivery mode
+    status = amqp_basic_publish(conn, 1, amqp_cstring_bytes(QUEUE_EXCHANGE_NAME),
+        amqp_cstring_bytes(""), 0, 0, &props, amqp_cstring_bytes(body));
     if (status != AMQP_STATUS_OK)
     {
         die("Error publishing message");
