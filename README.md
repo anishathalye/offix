@@ -4,7 +4,8 @@
 
 ## Hardware Setup
 
-**TODO**
+* Raspberry Pi
+    * Ralink RT5370
 
 ## Software Setup
 
