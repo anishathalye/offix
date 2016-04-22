@@ -6,7 +6,7 @@ You can get the dependencies by running:
 
 ```bash
 sudo apt-get update
-sudo apt-get install libpcap-dev
+sudo apt-get install libpcap-dev librabbitmq-dev
 ```
 
 After that, you can build the application by running `make`.
