@@ -5,6 +5,7 @@ LDFLAGS := -lpcap
 HEADERFILES := \
 
 
+.PHONY: all
 all: sniffer
 
 %.o: %.c $(HEADERFILES)
