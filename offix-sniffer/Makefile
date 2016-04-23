@@ -3,6 +3,8 @@ CCFLAGS := -std=gnu99 -O3 -Wall -Wextra -Werror -pedantic
 LDFLAGS := -lpcap -lrabbitmq
 
 HEADERFILES := \
+	radiotap.h \
+	80211.h \
 
 
 .PHONY: all

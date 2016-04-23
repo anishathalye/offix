@@ -1,15 +1,19 @@
+#include "radiotap.h"
+#include "80211.h"
+
 #include <amqp.h>
 #include <amqp_tcp_socket.h>
 #include <pcap.h>
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEVICE ("wlan0")
 #define QUEUE_HOSTNAME ("localhost")
 #define QUEUE_PORT (5672)
 #define QUEUE_EXCHANGE_NAME ("offix")
 
+void parse_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void die(const char *context);
 void die_on_amqp_error(amqp_rpc_reply_t reply, const char *context);
 void die_if_null(const void *ptr, const char *context);
@@ -19,13 +23,75 @@ void send_message(amqp_connection_state_t conn, const char *body);
 
 int main()
 {
+    char errbuf[PCAP_ERRBUF_SIZE];
+    pcap_t *handle;
+    char filter_exp[] = "type mgt subtype probe-req";
+    struct bpf_program fp;
     amqp_connection_state_t conn;
 
     conn = queue_connect();
-    // a test message
-    send_message(conn, "00:11:22:33:44:55");
+
+    handle = pcap_open_live(DEVICE, BUFSIZ, 1, 1000, errbuf);
+    if (handle == NULL)
+    {
+        die("Couldn't open device");
+    }
+    if (pcap_datalink(handle) != DLT_IEEE802_11_RADIO) {
+        // see http://www.tcpdump.org/linktypes.html
+        die("Device doesn't provide Radiotap link-layer information");
+    }
+
+    if (pcap_compile(handle, &fp, filter_exp, 0, PCAP_NETMASK_UNKNOWN) == -1)
+    {
+        die("Couldn't parse filter");
+    }
+
+    if (pcap_setfilter(handle, &fp) == -1)
+    {
+        die("Couldn't install filter");
+    }
+
+    pcap_loop(handle, -1, parse_packet, (u_char *) conn);
+
+    pcap_freecode(&fp);
+    pcap_close(handle);
+    amqp_connection_close(conn, AMQP_REPLY_SUCCESS);
 
     return 0;
+}
+
+void parse_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
+{
+    amqp_connection_state_t conn;
+    struct ieee80211_radiotap_header *radiotap;
+    struct mgmt_header_t *frame;
+    char buf[6*2 + (6 - 1) + 1];
+
+    conn = (amqp_connection_state_t) args;
+
+    (void) args; // unused arg
+
+    if (header->caplen < sizeof(struct ieee80211_radiotap_header))
+    {
+        return;
+    }
+    radiotap = (struct ieee80211_radiotap_header *) packet;
+
+    if (header->caplen < radiotap->it_len + sizeof(struct mgmt_header_t))
+    {
+        return;
+    }
+    frame = (struct mgmt_header_t *) (packet + radiotap->it_len);
+    snprintf(buf, sizeof(buf), "%02x:%02x:%02x:%02x:%02x:%02x",
+        frame->sa[0],
+        frame->sa[1],
+        frame->sa[2],
+        frame->sa[3],
+        frame->sa[4],
+        frame->sa[5]);
+    // publish
+    send_message(conn, buf);
+    printf("%s\n", buf); // also print to help with debugging
 }
 
 void send_message(amqp_connection_state_t conn, const char *body)
