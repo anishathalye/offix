@@ -6,6 +6,7 @@
 
 * Raspberry Pi
     * Ralink RT5370
+        * Works out of the box with Raspbian Jessie, supports monitor mode
 
 ## Software Setup
 
