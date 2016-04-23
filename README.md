@@ -9,11 +9,16 @@
 
 ## Software Setup
 
-**TODO**
+There are three main components in OffiX: a [WiFi sniffer](offix-sniffer/), a
+[web interface](offix-web/), and the [Hubot](https://hubot.github.com/)
+[plugin](hubot-offix/). Information about each component is in its own
+directory.
 
 ## Architecture
 
-**TODO**
+The WiFi sniffer and web interface are meant to run on the Raspberry Pi. The
+two communicate via a [RabbitMQ](https://www.rabbitmq.com/) instance running on
+the Raspberry Pi.
 
 ## License
 
