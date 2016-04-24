@@ -4,7 +4,7 @@ LDFLAGS := -lpcap -lrabbitmq
 
 HEADERFILES := \
 	radiotap.h \
-	80211.h \
+	ieee80211.h \
 
 
 .PHONY: all

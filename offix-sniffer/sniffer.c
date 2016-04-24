@@ -1,5 +1,5 @@
 #include "radiotap.h"
-#include "80211.h"
+#include "ieee80211.h"
 
 #include <amqp.h>
 #include <amqp_tcp_socket.h>
