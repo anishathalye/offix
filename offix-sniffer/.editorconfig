@@ -1,6 +1,11 @@
 [*.{c,h,cpp}]
 indent_size = 4
 
+# external file, downloaded from the internet
+[radiotap.h]
+indent_size = 8
+indent_style = tab
+
 [Makefile]
 indent_size = 8
 indent_style = tab
