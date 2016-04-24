@@ -21,6 +21,10 @@ The WiFi sniffer and web interface are meant to run on the Raspberry Pi. The
 two communicate via a [RabbitMQ](https://www.rabbitmq.com/) instance running on
 the Raspberry Pi.
 
+## Development Tips
+
+* This project uses [EditorConfig](http://editorconfig.org/)
+
 ## License
 
 Copyright (c) 2016 by the authors (see [AUTHORS.txt][authors]). Released under
