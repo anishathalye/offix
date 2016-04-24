@@ -69,8 +69,6 @@ void parse_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *
 
     conn = (amqp_connection_state_t) args;
 
-    (void) args; // unused arg
-
     if (header->caplen < sizeof(struct ieee80211_radiotap_header))
     {
         return;
