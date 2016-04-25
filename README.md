@@ -38,6 +38,28 @@ sudo ifconfig wlan0 up
 
 **Note: This needs to be run on every reboot!**
 
+To install node/npm on the Raspberry Pi, run:
+
+```bash
+wget http://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-armv6l.tar.gz
+cd /usr/local
+sudo tar xzvf ~/node-v4.2.4-linux-armv6l.tar.gz --strip=1
+```
+
+To install RabbitMQ on the Raspberry Pi, run:
+
+```bash
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+```
+
+To install MongoDB on the Raspberry Pi, run:
+
+```bash
+sudo apt-get update
+sudo apt-get install mongodb
+```
+
 ## Architecture
 
 The WiFi sniffer and web interface are meant to run on the Raspberry Pi. The
