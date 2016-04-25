@@ -3,14 +3,15 @@
   "description": "A script that interfaces with offix",
   "version": "0.0.1",
   "author": "Anish Athalye <me@anishathalye.com>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "keywords": "hubot, hubot-scripts",
   "repository": {
     "type": "git",
     "url": "https://github.com/anishathalye/hubot-offix"
   },
   "dependencies": {
-    "hubot-conf": "^1.0.0"
+    "hubot-conf": "^1.0.0",
+    "moment": "^2.13.0"
   },
   "peerDependencies": {
     "hubot": "2.x"

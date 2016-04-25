@@ -12,12 +12,45 @@
 # Author:
 #   anishathalye
 
+http = require('http')
+moment = require('moment')
+
+getHttp = (url, callback) ->
+  try
+    http.get url, (res) ->
+      body = ''
+      res.on 'data', (chunk) ->
+        body += chunk
+      res.on 'end', () ->
+        obj = JSON.parse body
+        callback(obj)
+      res.on 'error', (err) ->
+        callback(null, err)
+    .on 'error', (err) ->
+      callback(null, err)
+  catch err
+    callback(null, err)
+
+# matches API, which returns [{username, realName, lastSeen}]
+format = (data) ->
+  line = (elem) ->
+    if elem.lastSeen?
+      date = new Date(elem.lastSeen)
+      date = moment().to(date)
+    else
+      date = 'never'
+    "#{elem.username} | #{elem.realName} | #{date}"
+  [line(i) for i in data].join('\n')
+
 module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
-  group = new Group robot
 
   robot.respond /offix list/i, (res) ->
     baseUrl = config('baseurl')
     key = config('key')
     url = baseUrl + 'api/users' + '?key=' + key
-    res.send 'not implemented yet'
+    getHttp url, (data, err) ->
+      if data?
+        res.send format(data)
+      else
+        res.send 'http error: ' + err
