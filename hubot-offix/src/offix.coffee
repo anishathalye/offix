@@ -40,7 +40,7 @@ format = (data) ->
     else
       date = 'never'
     "#{elem.username} | #{elem.realName} | #{date}"
-  lines = [line(i) for i in data]
+  lines = (line(i) for i in data)
   lines.unshift("*username* | *real name* | *last seen*")
   lines.join('\n')
 
