@@ -19,6 +19,7 @@ wifi.start = function(db) {
     sub.setEncoding('utf-8');
     sub.connect(config.EXCHANGE_NAME, '', function() {
       sub.on('data', function(data) {
+        console.log('got data from rabbitmq: ' + data);
         if (utils.isMacAddress(data)) {
           consume(db, data);
         }
