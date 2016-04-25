@@ -14,7 +14,11 @@ MainController.authed = function(req, res) {
   // main view
   User.find({}, function(err, users) {
     var sorted = _.sortBy(users, function(user) {
-      return -user.lastSeen.getTime(); // negative to sort in descending order
+      if (user.lastSeen) {
+        return -user.lastSeen.getTime(); // negative to sort in descending order
+      } else {
+        return -(new Date().getTime());
+      }
     });
     var data = _.map(sorted, function(user) {
       return {
