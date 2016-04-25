@@ -15,6 +15,29 @@ There are three main components in OffiX: a [WiFi sniffer](offix-sniffer/), a
 [plugin](hubot-offix/). Information about each component is in its own
 directory.
 
+### System Setup
+
+To configure a static IP address, edit `/etc/network/interfaces` and add the
+following:
+
+```
+auto eth0
+iface eth0 inet static
+	address x.x.x.x
+	netmask x.x.x.x
+	gateway x.x.x.x
+```
+
+To put the wifi card in monitor mode, run the following:
+
+```bash
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+```
+
+**Note: This needs to be run on every reboot!**
+
 ## Architecture
 
 The WiFi sniffer and web interface are meant to run on the Raspberry Pi. The
