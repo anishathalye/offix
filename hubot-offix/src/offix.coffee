@@ -40,7 +40,9 @@ format = (data) ->
     else
       date = 'never'
     "#{elem.username} | #{elem.realName} | #{date}"
-  [line(i) for i in data].join('\n')
+  lines = [line(i) for i in data]
+  lines.unshift("*username* | *real name* | *last seen*")
+  lines.join('\n')
 
 module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
