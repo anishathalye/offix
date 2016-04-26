@@ -18,6 +18,24 @@ http = require('http')
 moment = require('moment')
 table = require('text-table')
 
+moment.updateLocale('en', {
+    relativeTime : {
+        future: "in %s",
+        past:   "%s ago",
+        s:  "sec",
+        m:  "a min",
+        mm: "%d min",
+        h:  "an hour",
+        hh: "%d hrs",
+        d:  "a day",
+        dd: "%d days",
+        M:  "a month",
+        MM: "%d months",
+        y:  "a year",
+        yy: "%d years"
+    }
+});
+
 DEFAULT_LIMIT = 2
 
 getHttp = (url, callback) ->
@@ -42,10 +60,10 @@ format = (data, limit) ->
   line = (elem) ->
     if elem.lastSeen?
       date = new Date(elem.lastSeen)
-      date = moment().to(date)
+      date = moment(date).fromNow(true)
     else
       date = 'never'
-    [elem.username, elem.realName, date]
+    [elem.realName, date]
   recent = (elem) ->
     if limit?
       diff = new Date() - new Date(elem.lastSeen)
@@ -53,8 +71,8 @@ format = (data, limit) ->
     else
       return true
   lines = (line(i) for i in data when recent(i))
-  lines.unshift(['--------', '---------', '---------'])
-  lines.unshift(['username', 'real name', 'last seen'])
+  lines.unshift(['---------', '----'])
+  lines.unshift(['real name', 'seen'])
   "```\n#{table(lines)}\n```"
 
 module.exports = (robot) ->
