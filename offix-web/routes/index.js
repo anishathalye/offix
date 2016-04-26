@@ -5,6 +5,7 @@ var utils = require('../utils/utils');
 var UserController = require('../controllers/user-controller');
 var MainController = require('../controllers/main-controller');
 var ApiController = require('../controllers/api-controller');
+var AdminController = require('../controllers/admin-controller');
 
 // main
 
@@ -30,6 +31,8 @@ router.all('/logout', function(req, res) {
 });
 
 // admin
+
+router.get('/admin', utils.isAdmin, AdminController.index);
 
 // TODO admin page
 

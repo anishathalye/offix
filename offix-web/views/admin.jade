@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 offix admin
+  table
+    tr
+      td
+        strong username
+      td
+        strong real name
+      td
+        strong last seen
+      td
+        strong admin?
+      td
+        strong mac addresses
+    each user in users
+      tr
+        td= user.username
+        td= user.realName
+        td= user.lastSeen
+        td= user.isAdmin
+        td
+          table
+            each addr in user.addresses
+              tr
+                td= addr
