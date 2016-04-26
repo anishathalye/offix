@@ -10,7 +10,7 @@ ApiController.users = function(req, res) {
       if (user.lastSeen) {
         return -user.lastSeen.getTime(); // negative to sort in descending order
       } else {
-        return -(new Date().getTime());
+        return 0; // never
       }
     });
     var data = _.map(sorted, function(user) {
