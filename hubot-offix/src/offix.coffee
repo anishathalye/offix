@@ -51,7 +51,7 @@ format = (data, limit) ->
       return diff < limit
     else
       return true
-  lines = (line(i) for i in data when recent(item))
+  lines = (line(i) for i in data when recent(i))
   lines.unshift("*username* | *real name* | *last seen*")
   lines.join('\n')
 
