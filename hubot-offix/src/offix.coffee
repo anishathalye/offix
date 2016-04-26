@@ -58,7 +58,7 @@ format = (data, limit) ->
 module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
 
-  robot.respond /offix list/i, (res) ->
+  robot.respond /offix list$/i, (res) ->
     baseUrl = config('baseurl')
     key = config('key')
     url = baseUrl + 'api/users' + '?key=' + key
@@ -69,7 +69,7 @@ module.exports = (robot) ->
       else
         res.send 'http error: ' + err
 
-  robot.respond /offix list all/i, (res) ->
+  robot.respond /offix list all$/i, (res) ->
     baseUrl = config('baseurl')
     key = config('key')
     url = baseUrl + 'api/users' + '?key=' + key
