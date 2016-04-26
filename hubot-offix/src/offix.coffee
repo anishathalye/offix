@@ -36,7 +36,9 @@ moment.updateLocale('en', {
     }
 });
 
-DEFAULT_LIMIT = 2
+DEFAULT_LIMIT = 2 # Hours
+DEFAULT_REFRESH = 15 # Seconds
+DEFAULT_ROOM = 'social'
 
 getHttp = (url, callback) ->
   try
@@ -75,26 +77,66 @@ format = (data, limit) ->
   lines.unshift(['real name', 'seen'])
   "```\n#{table(lines)}\n```"
 
+# Returns list of users that have just been seen after not been seen in a while.
+# prevUsers = a list of users [{username, realName, lastSeen}]
+# nextUsers = a list of users [{username, realName, lastSeen}]
+# limit = threshold for oldness (ms)
+newUsers = (prevUsers, nextUsers, limit) ->
+
+  if prevUsers.length is 0
+    return []
+
+  old = {}
+
+  isNew = (u) ->
+    if limit and u.lastSeen?
+      diff = new Date() - new Date(u.lastSeen)
+      return diff < limit
+
+  putOld = (u) ->
+    if u? and not isNew(u)
+      old[u.username] = true
+
+  putOld(user) for user in prevUsers
+
+  recentNew = (u) ->
+    return isNew(u) and old[u.username]
+
+  return (user for user in nextUsers when recentNew(user))
+
 module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
 
-  robot.respond /offix list$/i, (res) ->
+  usersCache = []
+
+  getLimit = ->
+    return parseInt(config('limit', DEFAULT_LIMIT)) * 60 * 60 * 1000
+
+  checkRecentNewUsers = (oldUsers, nextUsers) ->
+    limit = getLimit()
+    recent = newUsers(oldUsers, nextUsers, limit)
+    if recent.length > 0
+      room = config('room', DEFAULT_ROOM)
+      for user in recent
+        robot.messageRoom room, user.realName + ' is in the office!'
+
+  refreshUsersCache = ->
     baseUrl = config('baseurl')
     key = config('key')
     url = baseUrl + 'api/users' + '?key=' + key
     getHttp url, (data, err) ->
       if data?
-        limit = parseInt(config('limit', DEFAULT_LIMIT)) * 60 * 60 * 1000
-        res.send format(data, limit)
+        checkRecentNewUsers(usersCache, data)
+        usersCache = data
       else
-        res.send 'http error: ' + err
+        return
+
+  refreshUsersCache()
+  setInterval(refreshUsersCache, config('refresh', DEFAULT_REFRESH) * 1000)
+
+  robot.respond /offix list$/i, (res) ->
+    limit = getLimit()
+    res.send format(usersCache, limit)
 
   robot.respond /offix list all$/i, (res) ->
-    baseUrl = config('baseurl')
-    key = config('key')
-    url = baseUrl + 'api/users' + '?key=' + key
-    getHttp url, (data, err) ->
-      if data?
-        res.send format(data)
-      else
-        res.send 'http error: ' + err
+    res.send format(usersCache)
