@@ -3,7 +3,7 @@ extends layout
 block content
   h1 offix admin
   table
-    tr
+    tr(class="alternating")
       td
         strong username
       td
@@ -15,7 +15,7 @@ block content
       td
         strong mac addresses
     each user in users
-      tr
+      tr(class="alternating")
         td= user.username
         td= user.realName
         td= user.lastSeen

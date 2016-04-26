@@ -16,7 +16,7 @@ th, td {
   text-align: left;
 }
 
-tr:nth-child(even) {
+tr.alternating:nth-child(even) {
   background-color: #f2f2f2;
 }
 

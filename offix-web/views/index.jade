@@ -7,7 +7,7 @@ block content
   p
     a(href='/logout') log out
   table
-    tr
+    tr(class="alternating")
       td
         strong username
       td
@@ -15,7 +15,7 @@ block content
       td
         strong last seen
     each user in users
-      tr
+      tr(class="alternating")
         td= user.username
         td= user.realName
         td= user.lastSeen

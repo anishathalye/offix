@@ -3,24 +3,24 @@ extends layout
 block content
   h1 account
   table
-    tr
+    tr(class="alternating")
       td
         strong username
       td= username
-    tr
+    tr(class="alternating")
       td
         strong real name
       td= realName
-    tr
+    tr(class="alternating")
       td
         strong admin?
       td= isAdmin
-    tr
+    tr(class="alternating")
       td
         strong last seen
       td= lastSeen
     each addr in addresses
-      tr
+      tr(class="alternating")
         td
           strong address
         td #{addr}
