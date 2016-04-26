@@ -5,6 +5,8 @@
 #   HUBOT_OFFIX_BASEURL - the base URL of the offix installation (which should
 #     end with a trailing slash).
 #   HUBOT_OFFIX_KEY - the API key.
+#   HUBOT_OFFIX_LIMIT - the number of hours to show in the default view
+#     (defaults to 2).
 #
 # Commands:
 #   hubot offix list - show who is in the office
@@ -14,6 +16,8 @@
 
 http = require('http')
 moment = require('moment')
+
+DEFAULT_LIMIT = 2
 
 getHttp = (url, callback) ->
   try
@@ -32,7 +36,8 @@ getHttp = (url, callback) ->
     callback(null, err)
 
 # matches API, which returns [{username, realName, lastSeen}]
-format = (data) ->
+# limit in milliseconds
+format = (data, limit) ->
   line = (elem) ->
     if elem.lastSeen?
       date = new Date(elem.lastSeen)
@@ -40,7 +45,13 @@ format = (data) ->
     else
       date = 'never'
     "#{elem.username} | #{elem.realName} | #{date}"
-  lines = (line(i) for i in data)
+  recent = (elem) ->
+    if limit?
+      diff = new Date() - new Date(elem.lastSeen)
+      return diff < limit
+    else
+      return true
+  lines = (line(i) for i in data when recent(item))
   lines.unshift("*username* | *real name* | *last seen*")
   lines.join('\n')
 
@@ -48,6 +59,17 @@ module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
 
   robot.respond /offix list/i, (res) ->
+    baseUrl = config('baseurl')
+    key = config('key')
+    url = baseUrl + 'api/users' + '?key=' + key
+    getHttp url, (data, err) ->
+      if data?
+        limit = parseInt(config('limit', DEFAULT_LIMIT)) * 60 * 60 * 1000
+        res.send format(data, limit)
+      else
+        res.send 'http error: ' + err
+
+  robot.respond /offix list all/i, (res) ->
     baseUrl = config('baseurl')
     key = config('key')
     url = baseUrl + 'api/users' + '?key=' + key
