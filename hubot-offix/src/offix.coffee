@@ -16,6 +16,7 @@
 
 http = require('http')
 moment = require('moment')
+table = require('text-table')
 
 DEFAULT_LIMIT = 2
 
@@ -44,7 +45,7 @@ format = (data, limit) ->
       date = moment().to(date)
     else
       date = 'never'
-    "#{elem.username} | #{elem.realName} | #{date}"
+    [elem.username, elem.realName, date]
   recent = (elem) ->
     if limit?
       diff = new Date() - new Date(elem.lastSeen)
@@ -52,8 +53,9 @@ format = (data, limit) ->
     else
       return true
   lines = (line(i) for i in data when recent(i))
-  lines.unshift("*username* | *real name* | *last seen*")
-  lines.join('\n')
+  lines.unshift(['--------', '---------', '---------'])
+  lines.unshift(['username', 'real name', 'last seen'])
+  "```\n#{table(lines)}\n```"
 
 module.exports = (robot) ->
   config = require('hubot-conf')('offix', robot)
