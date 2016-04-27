@@ -11,6 +11,7 @@ userSchema = new mongoose.Schema({
   isAdmin: {type: Boolean, default: false},
   macAddresses: [String],
   lastSeen: Date,
+  shouldBroadcast: {type: Boolean, default: true},
   // we're not currently collecting historical data, and we're not associating
   // last seen times with specific MAC addresses
 });

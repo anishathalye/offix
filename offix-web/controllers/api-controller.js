@@ -19,6 +19,7 @@ ApiController.users = function(req, res) {
         realName: user.realName,
         lastSeen: user.lastSeen || null,
         // can use `new Date(lastSeen)` to turn this back into a date
+        shouldBroadcast: user.shouldBroadcast,
       };
     });
     res.json(data);

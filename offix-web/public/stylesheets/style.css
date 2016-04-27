@@ -20,7 +20,27 @@ tr.alternating:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+td.positive,
+tr.positive,
+tr.negative {
+  color: white;
+}
+
+td.positive,
+tr.positive {
+  background-color: #2ecc71 !important;
+}
+
+td.positive,
+tr.negative {
+  background-color: #e74c3c !important;
+}
+
 th {
   background-color: #4CAF50;
   color: white;
+}
+
+.inline {
+  display: inline-block;
 }

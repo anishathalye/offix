@@ -15,6 +15,7 @@ AdminController.index = function(req, res) {
         username: user.username,
         realName: user.realName,
         lastSeen: user.lastSeen ? moment().to(user.lastSeen) : 'never',
+        shouldBroadcast: user.shouldBroadcast,
         isAdmin: user.isAdmin,
         addresses: user.macAddresses,
       };

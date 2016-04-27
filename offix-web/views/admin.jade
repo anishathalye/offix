@@ -13,6 +13,8 @@ block content
       td
         strong admin?
       td
+        strong broadcast?
+      td
         strong mac addresses
     each user in users
       tr(class="alternating")
@@ -20,6 +22,7 @@ block content
         td= user.realName
         td= user.lastSeen
         td= user.isAdmin
+        td(class="#{user.shouldBroadcast ? 'positive':'negative'}")
         td
           table
             each addr in user.addresses
