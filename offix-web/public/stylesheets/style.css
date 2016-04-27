@@ -31,7 +31,7 @@ tr.positive {
   background-color: #2ecc71 !important;
 }
 
-td.positive,
+td.negative,
 tr.negative {
   background-color: #e74c3c !important;
 }
