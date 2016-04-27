@@ -118,7 +118,8 @@ module.exports = (robot) ->
     if recent.length > 0
       room = config('room', DEFAULT_ROOM)
       for user in recent
-        robot.messageRoom room, user.realName + ' is in the office!'
+        if user.shouldBroadcast
+          robot.messageRoom room, user.realName + ' is in the office!'
 
   refreshUsersCache = ->
     baseUrl = config('baseurl')

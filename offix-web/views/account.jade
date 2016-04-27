@@ -19,6 +19,13 @@ block content
       td
         strong last seen
       td= lastSeen
+    tr(class="alternating #{shouldBroadcast ? 'positive':'negative'}")
+      td
+        strong (privacy) should broadcast
+      td
+        form(class='inline' action='account/setprivacy', method='post')
+          input(type='hidden', name='shouldBroadcast', value='#{shouldBroadcast}')
+          input(class="toggle" type='submit', value=('turn ' + (shouldBroadcast ? 'off' : 'on')))
     each addr in addresses
       tr(class="alternating")
         td

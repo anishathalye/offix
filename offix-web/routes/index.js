@@ -19,6 +19,8 @@ router.post('/account/addaddress', utils.isAuthed, UserController.addAddress);
 
 router.post('/account/deleteaddress', utils.isAuthed, UserController.deleteAddress);
 
+router.post('/account/setprivacy', utils.isAuthed, UserController.setPrivacy);
+
 router.get('/create', UserController.create);
 
 router.post('/register', UserController.register);

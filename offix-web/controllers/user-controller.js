@@ -21,6 +21,7 @@ UserController.account = function(req, res) {
       isAdmin: user.isAdmin,
       lastSeen: lastSeen,
       addresses: user.macAddresses,
+      shouldBroadcast: user.shouldBroadcast,
     });
   });
 };
@@ -103,6 +104,20 @@ UserController.deleteAddress = function(req, res) {
     user.macAddresses = _.without(user.macAddresses, addr);
     user.save(function(err, user) {
       req.session.user = user; // so mac addresses show up
+      res.redirect('/account');
+    });
+  });
+};
+
+UserController.setPrivacy = function(req, res) {
+  User.findById(req.session.user._id, function(err, user) {
+    if (err || !user) {
+      return res.redirect('/account');
+    }
+    var shouldBroadcast = req.body.shouldBroadcast === "true";
+    user.shouldBroadcast = !shouldBroadcast;
+    user.save(function(err, user) {
+      req.session.user = user;
       res.redirect('/account');
     });
   });
