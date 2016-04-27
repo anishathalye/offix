@@ -23,22 +23,22 @@ moment.updateLocale('en', {
         future: "in %s",
         past:   "%s ago",
         s:  "sec",
-        m:  "a min",
+        m:  "1 min",
         mm: "%d min",
-        h:  "an hour",
+        h:  "1 hr",
         hh: "%d hrs",
-        d:  "a day",
+        d:  "1 day",
         dd: "%d days",
-        M:  "a month",
+        M:  "1 month",
         MM: "%d months",
-        y:  "a year",
+        y:  "1 year",
         yy: "%d years"
     }
 });
 
 DEFAULT_LIMIT = 2 # Hours
 DEFAULT_REFRESH = 15 # Seconds
-DEFAULT_ROOM = 'social'
+DEFAULT_ROOM = 'general'
 
 getHttp = (url, callback) ->
   try
