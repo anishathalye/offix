@@ -68,10 +68,6 @@ getHttp = (url, callback) ->
 # limit in milliseconds
 format = (data, limit) ->
 
-  if data.length == 0
-    randomEmpty = EMPTY_OFFICE[Math.floor(Math.random() * EMPTY_OFFICE.length)]
-    return "```\n#{randomEmpty}\n```"
-
   line = (elem) ->
     if elem.lastSeen?
       date = new Date(elem.lastSeen)
@@ -86,9 +82,14 @@ format = (data, limit) ->
     else
       return true
   lines = (line(i) for i in data when recent(i))
-  lines.unshift(['---------', '----'])
-  lines.unshift(['real name', 'seen'])
-  "```\n#{table(lines)}\n```"
+
+  if lines.length == 0
+    randomEmpty = EMPTY_OFFICE[Math.floor(Math.random() * EMPTY_OFFICE.length)]
+    "```\n#{randomEmpty}\n```"
+  else
+    lines.unshift(['---------', '----'])
+    lines.unshift(['real name', 'seen'])
+    "```\n#{table(lines)}\n```"
 
 # Returns list of users that have just been seen after not been seen in a while.
 # prevUsers = a list of users [{username, realName, lastSeen}]
