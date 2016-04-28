@@ -40,6 +40,14 @@ DEFAULT_LIMIT = 2 # Hours
 DEFAULT_REFRESH = 15 # Seconds
 DEFAULT_ROOM = 'general'
 
+EMPTY_OFFICE = [
+  "It's quiet...",
+  "Nobody's here! :(",
+  "Empty... Perfect for a nap?",
+  "Nobody here but the cactus.",
+  "Nobody is here. Come be a trendsetter.",
+]
+
 getHttp = (url, callback) ->
   try
     http.get url, (res) ->
@@ -59,6 +67,11 @@ getHttp = (url, callback) ->
 # matches API, which returns [{username, realName, lastSeen}]
 # limit in milliseconds
 format = (data, limit) ->
+
+  if data.length == 0
+    randomEmpty = EMPTY_OFFICE[Math.floor(Math.random() * EMPTY_OFFICE.length)]
+    return "```\n#{randomEmpty}\n```"
+
   line = (elem) ->
     if elem.lastSeen?
       date = new Date(elem.lastSeen)
