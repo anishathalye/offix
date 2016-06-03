@@ -2,6 +2,10 @@
 
 "Who is in the office?"
 
+This documentation is decent, but it isn't super detailed, at least not yet. If
+you're trying to set this up and have any questions, feel free to [open an
+issue][issue] or send me an email (me@anishathalye.com).
+
 ## Hardware Setup
 
 * Raspberry Pi
@@ -70,10 +74,16 @@ the Raspberry Pi.
 
 * This project uses [EditorConfig](http://editorconfig.org/)
 
+## Contributing
+
+Contributions in the form of bug reports/feature requests as well as pull
+requests are much appreciated!
+
 ## License
 
 Copyright (c) 2016 by the authors (see [AUTHORS.txt][authors]). Released under
 GPLv3. See [LICENSE.txt][license] for details.
 
+[issue]: https://github.com/anishathalye/offix/issues/new
 [license]: LICENSE.txt
 [authors]: AUTHORS.txt
