@@ -102,19 +102,24 @@ newUsers = (prevUsers, nextUsers, limit) ->
 
   old = {}
 
-  isNew = (u) ->
-    if limit and u.lastSeen?
-      diff = new Date() - new Date(u.lastSeen)
-      return diff < limit
+  isRecent = (u) ->
+    if limit
+      if u.lastSeen?
+        diff = new Date() - new Date(u.lastSeen)
+        return diff < limit
+      else
+        return false
+    else
+      return true
 
   putOld = (u) ->
-    if u? and not isNew(u)
+    if u? and not isRecent(u)
       old[u.username] = true
 
   putOld(user) for user in prevUsers
 
   recentNew = (u) ->
-    return isNew(u) and old[u.username]
+    return isRecent(u) and old[u.username]
 
   return (user for user in nextUsers when recentNew(user))
 
