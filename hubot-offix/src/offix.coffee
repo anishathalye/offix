@@ -78,7 +78,7 @@ format = (data, limit) ->
   recent = (elem) ->
     if limit?
       diff = new Date() - new Date(elem.lastSeen)
-      return diff < limit || elem.lastSeen == null
+      return diff < limit
     else
       return true
   lines = (line(i) for i in data when recent(i))
