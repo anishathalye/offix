@@ -10,6 +10,7 @@
 #
 # Commands:
 #   hubot offix list - show who is in the office
+#   hubot offix list all - show all people who have been in the office
 #
 # Author:
 #   anishathalye
