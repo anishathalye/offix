@@ -26,4 +26,9 @@ wifi.start = function(db) {
       });
     });
   });
+  context.on('error', function(err) {
+    // attaching the error handler and re-throwing the error here makes it
+    // slightly easier to debug
+    throw err;
+  });
 };
