@@ -34,7 +34,7 @@ int main()
     handle = pcap_open_live(DEVICE, BUFSIZ, 1, 1000, errbuf);
     if (handle == NULL)
     {
-        die("Couldn't open device");
+        die("Couldn't open device (are you running as root?)");
     }
     if (pcap_datalink(handle) != DLT_IEEE802_11_RADIO) {
         // see http://www.tcpdump.org/linktypes.html
