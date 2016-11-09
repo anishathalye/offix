@@ -1,45 +1,53 @@
 extends layout
 
 block content
-  h1 account
-  table
-    tr(class="alternating")
-      td
-        strong username
-      td= username
-    tr(class="alternating")
-      td
-        strong real name
-      td= realName
-    tr(class="alternating")
-      td
-        strong admin?
-      td= isAdmin
-    tr(class="alternating")
-      td
-        strong last seen
-      td= lastSeen
-    tr(class="alternating #{shouldBroadcast ? 'positive':'negative'}")
-      td
-        strong (privacy) should broadcast
-      td
-        form(class='inline' action='account/setprivacy', method='post')
-          input(type='hidden', name='shouldBroadcast', value='#{shouldBroadcast}')
-          input(class="toggle" type='submit', value=('turn ' + (shouldBroadcast ? 'off' : 'on')))
-    each addr in addresses
-      tr(class="alternating")
-        td
-          strong address
-        td #{addr}
-          form(action='/account/deleteaddress', method='post')
-            input(type='hidden', name='address', value='#{addr}')
-            input(type='submit', value='delete')
-  h2 add mac address (01:23:45:67:89:ab)
-  form(name='add', action='/account/addaddress', method='post')
+  div.center
+    h1.offix Offi<span>X</span>
+    h1.title Account
+    hr
     table
-      tr
+      tr.alternating
         td
-          label(for='address') mac address
+          strong Username
+        td= username
+      tr.alternating
         td
-          input(type='text', name='address')
-    input(type='submit', value='add')
+          strong Real Name
+        td= realName
+      tr.alternating
+        td
+          strong Admin?
+        td= isAdmin
+      tr.alternating
+        td
+          strong Last Seen
+        td= lastSeen
+      tr(class="alternating #{shouldBroadcast ? 'positive':'negative'}")
+        td
+          strong (Privacy) Should Broadcast
+        form.inline(action='account/setprivacy', method='post')
+          td.toggle-button
+            input(type='hidden', name='shouldBroadcast', value='#{shouldBroadcast}')
+            input.toggle(type='submit', value=('Turn ' + (shouldBroadcast ? 'Off' : 'On')))
+      each addr in addresses
+        tr.alternating
+          td
+            strong address
+          td.mac #{addr}
+            div.remove-button.glyphicon.glyphicon-remove
+              form(action='/account/deleteaddress', method='post')
+                input(type='hidden', name='address', value='#{addr}')
+                span
+                input(type='submit', value='')
+    hr
+    form(name='add', action='/account/addaddress', method='post')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-signal
+        input.form-control(type='text', name='address', placeholder='Add Mac Address (01:23:45:67:89:ab)')
+
+      div.form-group
+        input.btn.btn-def.btn-block.register(type='submit', value='Add')
+
+      a.back(href="/") &lt; Back

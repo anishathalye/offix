@@ -1,27 +1,33 @@
 extends layout
 
 block content
-  h1 create account
-  form(name='register', action='/register', method='post')
-    table
-      tr
-        td
-          label(for='username') username
-        td
-          input(type='text', name='username')
-      tr
-        td
-          label(for='realName') real name
-        td
-          input(type='text', name='realName')
-      tr
-        td
-          label(for='password') password
-        td
-          input(type='password', name='password')
-      tr
-        td
-          label(for='key') signup key
-        td
-          input(type='text', name='key')
-    input(type='submit', value='register')
+  div.center
+    h1.offix Offi<span>X</span>
+    h1.title Create Account
+    h4.error #{errMes}
+    form(name='register', action='/register', method='post')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-user
+        input.form-control(type='text', name='username', placeholder='Username')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-user
+        input.form-control(type='text', name='realName', placeholder='Real Name')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-lock
+        input.form-control(type='password', name='password', placeholder='Password')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-lock
+        input.form-control(type='text', name='key', placeholder='Signup Key')
+
+      div.form-group
+        input.btn.btn-def.btn-block.login(type='submit', value='Register')
+
+      a.back(href="/") &lt; Back

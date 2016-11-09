@@ -1,21 +1,21 @@
 extends layout
 
 block content
-  h1 offix
-  p
-    a(href='/account') account
-  p
-    a(href='/logout') log out
-  table
-    tr(class="alternating")
-      td
-        strong username
-      td
-        strong real name
-      td
-        strong last seen
-    each user in users
-      tr(class="alternating")
-        td= user.username
-        td= user.realName
-        td= user.lastSeen
+  div.center
+    h1.offix Offi<span>X</span>
+    div.form-group
+      a.btn.btn-def.btn-block.register(href="/account") Account
+      a.btn.btn-def.btn-block.register(href='/logout') Log Out
+    table
+      tr.alternating(id="table-titles")
+        td
+          strong username
+        td
+          strong real name
+        td
+          strong last seen
+      each user in users
+        tr.alternating.data
+          td= user.username
+          td= user.realName
+          td= user.lastSeen

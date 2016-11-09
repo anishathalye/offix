@@ -1,30 +1,32 @@
 extends layout
 
 block content
-  h1 offix admin
-  table
-    tr(class="alternating")
-      td
-        strong username
-      td
-        strong real name
-      td
-        strong last seen
-      td
-        strong admin?
-      td
-        strong broadcast?
-      td
-        strong mac addresses
-    each user in users
-      tr(class="alternating")
-        td= user.username
-        td= user.realName
-        td= user.lastSeen
-        td= user.isAdmin
-        td(class="#{user.shouldBroadcast ? 'positive':'negative'}")
+  div.center.admin-center
+    h1.offix Offi<span>X</span>
+    h1.title Admin
+    table
+      tr.alternating(id="table-titles")
         td
-          table
-            each addr in user.addresses
-              tr
-                td= addr
+          strong username
+        td
+          strong real name
+        td
+          strong last seen
+        td
+          strong admin?
+        td
+          strong broadcast?
+        td
+          strong mac addresses
+      each user in users
+        tr.alternating
+          td= user.username
+          td= user.realName
+          td= user.lastSeen
+          td= user.isAdmin
+          td(class="#{user.shouldBroadcast ? 'positive':'negative'}")
+          td
+            table
+              each addr in user.addresses
+                tr
+                  td= addr
