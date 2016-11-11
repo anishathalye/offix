@@ -1,2 +1,2 @@
-[*.{js,jade,css}]
+[*.{js,jade,css,scss}]
 indent_size = 2
