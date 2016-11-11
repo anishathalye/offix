@@ -1,19 +1,22 @@
 extends layout
 
 block content
-  h1 log in
-  form(name='login', action='/login', method='post')
-    table
-      tr
-        td
-          label(for='username') username
-        td
-          input(type='text', name='username')
-      tr
-        td
-          label(for='password') password
-        td
-          input(type='password', name='password')
-    input(type='submit', value='login')
-  p.
-    need an account? make one #[a(href='/create') here].
+  div.center
+    h1.offix Offi<span>X</span>
+    h1.title Log In
+    h4.error #{errMes}
+    form(name='login', action='/login', method='post', autocomplete="off")
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-user
+        input.form-control(type='text', name='username', placeholder='Username')
+
+      div.form-group.input-group
+        span.input-group-addon
+          i.glyphicon.glyphicon-lock
+        input.form-control(type='password', name='password', placeholder='Password')
+
+      div.form-group
+        input.btn.btn-def.btn-block.login(type='submit', value='Login')
+        a.btn.btn-def.btn-block.register(href='/create') Sign Up

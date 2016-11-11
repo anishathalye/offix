@@ -1,6 +1,9 @@
 # Secrets
 config.js
 
+# Compiled scss
+public/stylesheets/styles.css
+
 # Logs
 logs
 *.log
