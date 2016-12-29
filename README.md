@@ -50,6 +50,10 @@ cd /usr/local
 sudo tar xzvf ~/node-v4.2.4-linux-armv6l.tar.gz --strip=1
 ```
 
+**Note: These installation instructions are for a 1st-generation Raspberry Pi
+that has an ARMv6 CPU. If you're using a newer Raspberry Pi, download the
+appropriate version of node from [here](https://nodejs.org/en/download/).**
+
 To install RabbitMQ on the Raspberry Pi, run:
 
 ```bash
