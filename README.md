@@ -2,6 +2,10 @@
 
 "Who is in the office?"
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/anishathalye/offix/docs/screenshot.png" width="700" height="300" alt="OffiX screenshot">
+</p>
+
 This documentation is decent, but it isn't super detailed, at least not yet. If
 you're trying to set this up and have any questions, feel free to [open an
 issue][issue] or send me an email (me@anishathalye.com).
