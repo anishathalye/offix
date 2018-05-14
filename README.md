@@ -89,8 +89,8 @@ requests are much appreciated!
 
 ## License
 
-Copyright (c) 2016 by the authors (see [AUTHORS.txt][authors]). Released under
-GPLv3. See [LICENSE.txt][license] for details.
+Copyright (c) 2016-2018 by the authors (see [AUTHORS.txt][authors]). Released
+under GPLv3. See [LICENSE.txt][license] for details.
 
 [issue]: https://github.com/anishathalye/offix/issues/new
 [license]: LICENSE.txt
