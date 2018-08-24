@@ -14,6 +14,9 @@ userSchema = new mongoose.Schema({
   shouldBroadcast: {type: Boolean, default: true},
   // we're not currently collecting historical data, and we're not associating
   // last seen times with specific MAC addresses
+},
+{
+  usePushEach: true,
 });
 
 userSchema.statics.register = function(username, password, realName, callback) {
