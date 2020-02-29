@@ -3,7 +3,7 @@
 "Who is in the office?"
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/anishathalye/offix/docs/screenshot.png" width="700" height="300" alt="OffiX screenshot">
+    <img src="https://raw.githubusercontent.com/anishathalye/offix/docs/screenshot.png" width="700" alt="OffiX screenshot">
 </p>
 
 This documentation is decent, but it isn't super detailed, at least not yet. If
